@@ -16,9 +16,6 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() body) {
-    const userId = await this.authService.registration(body);
-    return {
-      userId,
-    };
+    return await this.authService.registration(body);
   }
 }

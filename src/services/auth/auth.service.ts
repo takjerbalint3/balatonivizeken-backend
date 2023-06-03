@@ -26,6 +26,7 @@ export class AuthService {
     }
     const payload = { username: user.username, sub: user._id };
     return {
+      id: user._id,
       access_token: await this.jwtService.signAsync(payload),
     };
   }
@@ -34,14 +35,21 @@ export class AuthService {
     return crypto.randomBytes(32).toString('hex');
   }
 
-  async registration(registration: RegistrationDto): Promise<string> {
-    const user = await this.usersService.findByEmailAddress(
+  async registration(registration: RegistrationDto) {
+    let user = await this.usersService.findByEmailAddress(
       registration.emailAddress,
     );
 
     if (user !== null) {
       throw new BalatoniVizekenException(
         'Ezzel az emaillel már regisztráltak!',
+      );
+    }
+    user = await this.usersService.findOne(registration.username);
+
+    if (user !== null) {
+      throw new BalatoniVizekenException(
+        'Ezzel az felhasználónévvel már regisztráltak!',
       );
     }
 
@@ -82,7 +90,10 @@ export class AuthService {
       verifyEmailData,
     );
 */
-
-    return String(createdUser._id);
+    const payload = { username: createdUser.username, sub: createdUser._id };
+    return {
+      id: createdUser._id,
+      access_token: await this.jwtService.signAsync(payload),
+    };
   }
 }
