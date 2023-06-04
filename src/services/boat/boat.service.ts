@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BoatDocument, Boat } from '../../models/schema/boat.schema';
 import { BoatDto } from '../../models/dto/boat.dto';
+import { Boat, BoatDocument } from '../../models/schema/boat.schema';
 
 @Injectable()
 export class BoatService {
@@ -12,11 +12,14 @@ export class BoatService {
   ) {}
 
   async updateBoat(inputBoat: BoatDto) {
+    console.log('miafasz');
     if (inputBoat._id == undefined) {
       console.log('Create new Boat');
 
       const newBoat = new this.boatModel(inputBoat);
-      return newBoat.save();
+      newBoat.save();
+      console.log(newBoat);
+      return newBoat;
     } else {
       console.log('Update boat');
       return await this.boatModel.findByIdAndUpdate(inputBoat._id, inputBoat);

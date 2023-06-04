@@ -1,5 +1,5 @@
 export interface BoatDto {
-  _id: string;
+  _id?: string;
   userId: string;
   boatType: string;
   displayName: string;
