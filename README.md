@@ -1,3 +1,7 @@
+## Fejlesztés
+- Környezeti változók beállítása
+  -.env.sample környezeti változó fájl lemásolása -> mentsd el .env-ként
+  - Lokálisan be tudsz állítani bármilyen értékeket nekik saját fejlesztéshez, a lényeg, hogy állíts be valamit
 
 ## Description
 
