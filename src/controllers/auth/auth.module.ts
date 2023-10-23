@@ -13,7 +13,7 @@ import config from '../../config/keys';
     JwtModule.register({
       global: true,
       secret: config.jwtSecret,
-      signOptions: { expiresIn: '60s' },
+      signOptions: { expiresIn: '1d' },
     }),
   ],
   providers: [AuthService],
