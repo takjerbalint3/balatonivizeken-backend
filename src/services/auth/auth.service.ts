@@ -10,6 +10,7 @@ import * as bcrypt from 'bcrypt';
 import { RegistrationDto } from '../../models/dto/registration.dto';
 import { User } from '../../models/schema/user.schema';
 import * as crypto from 'crypto';
+import { SignInDto } from 'src/models/dto/sign_in.dto';
 
 const salt = config.saltValue;
 
@@ -20,12 +21,16 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(username: string, pass: string) {
-    const user = await this.usersService.findOne(username);
-    const inputPasswordHash = await bcrypt.hash(pass, salt);
-    console.log(user, inputPasswordHash);
+  async signIn(signInDto: SignInDto) {
+    const user = await this.usersService.findOne(signInDto.username);
+    if (!user) {
+      throw new NotFoundException('Felhasználó nem létezik');
+    }
+    const inputPasswordHash = await bcrypt.hash(signInDto.password, salt);
     if (user?.passwordHash !== inputPasswordHash) {
-      throw new NotFoundException('Hibás felhasználónév, vagy jelszó');
+      throw new NotFoundException(
+        'A megadott jelszó hibás, próbálja újra, vagy kérjen új jelszót!',
+      );
     }
     const payload = { username: user.username, sub: user._id };
     return {
@@ -43,14 +48,14 @@ export class AuthService {
       registration.emailAddress,
     );
 
-    if (user !== null) {
+    if (user) {
       throw new BadRequestException('Ezzel az emaillel már regisztráltak!');
     }
     user = await this.usersService.findOne(registration.username);
 
-    if (user !== null) {
+    if (user) {
       throw new BadRequestException(
-        'Ezzel az felhasználónévvel már regisztráltak!',
+        'Ezzel a felhasználónévvel már regisztráltak!',
       );
     }
 
@@ -63,9 +68,9 @@ export class AuthService {
     newUser.username = registration.username;
     const passwordHash = await bcrypt.hash(registration.password, salt);
     newUser.passwordHash = passwordHash;
+
     const createdUser = await this.usersService.create(newUser);
 
-    console.log(createdUser);
     /* TODO emailVerification
     const verifyEmailData = {
       welcome: 'Kedves ' + newUser.givenName + '!',

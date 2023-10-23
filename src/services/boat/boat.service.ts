@@ -12,16 +12,11 @@ export class BoatService {
   ) {}
 
   async updateBoat(inputBoat: BoatDto) {
-    console.log('miafasz');
     if (inputBoat._id == undefined) {
-      console.log('Create new Boat');
+      const newBoat = await this.boatModel.create(inputBoat);
 
-      const newBoat = new this.boatModel(inputBoat);
-      newBoat.save();
-      console.log(newBoat);
       return newBoat;
     } else {
-      console.log('Update boat');
       return await this.boatModel.findByIdAndUpdate(inputBoat._id, inputBoat);
     }
   }
