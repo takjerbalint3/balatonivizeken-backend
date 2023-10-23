@@ -1,10 +1,13 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import config from '../../config/keys';
 import * as bcrypt from 'bcrypt';
 import { RegistrationDto } from '../../models/dto/registration.dto';
-import { BalatoniVizekenException } from '../../exception/balatonivizeken-exception';
 import { User } from '../../models/schema/user.schema';
 import * as crypto from 'crypto';
 
@@ -22,7 +25,7 @@ export class AuthService {
     const inputPasswordHash = await bcrypt.hash(pass, salt);
     console.log(user, inputPasswordHash);
     if (user?.passwordHash !== inputPasswordHash) {
-      throw new UnauthorizedException();
+      throw new NotFoundException('Hibás felhasználónév, vagy jelszó');
     }
     const payload = { username: user.username, sub: user._id };
     return {
@@ -41,14 +44,12 @@ export class AuthService {
     );
 
     if (user !== null) {
-      throw new BalatoniVizekenException(
-        'Ezzel az emaillel már regisztráltak!',
-      );
+      throw new BadRequestException('Ezzel az emaillel már regisztráltak!');
     }
     user = await this.usersService.findOne(registration.username);
 
     if (user !== null) {
-      throw new BalatoniVizekenException(
+      throw new BadRequestException(
         'Ezzel az felhasználónévvel már regisztráltak!',
       );
     }
