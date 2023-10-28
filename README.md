@@ -2,7 +2,7 @@
 - Környezeti változók beállítása
   -.env.sample környezeti változó fájl lemásolása -> mentsd el .env-ként
   - Lokálisan be tudsz állítani bármilyen értékeket nekik saját fejlesztéshez, a lényeg, hogy állíts be valamit
-
+- Node v18.16.1-el működik biztosan.
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
