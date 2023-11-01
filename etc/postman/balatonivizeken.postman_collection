@@ -1,8 +1,8 @@
 {
 	"info": {
-		"_postman_id": "c059919a-4113-48fc-b986-12283ce36861",
+		"_postman_id": "0561f082-1c81-4ecf-b0aa-36ed9c3c639b",
 		"name": "BalatoniVizeken",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -22,16 +22,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/register",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"register"
-							]
-						}
+						"url": "{{baseUrl}}/auth/register"
 					},
 					"response": []
 				},
@@ -49,16 +40,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"login"
-							]
-						}
+						"url": "{{baseUrl}}/auth/login"
 					},
 					"response": []
 				}
@@ -81,16 +63,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/boat/update",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"boat",
-								"update"
-							]
-						}
+						"url": "{{baseUrl}}/boat/update"
 					},
 					"response": []
 				},
@@ -124,16 +97,52 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": ""
 					},
 					"response": []
 				},
 				{
-					"name": "Get All Boats",
+					"name": "Get Markers",
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": null
+						"url": ""
+					},
+					"response": []
+				},
+				{
+					"name": "Location update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"latitude\": 74.1321,\r\n    \"longitude\": 62.32\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/boat/location/64750de87fe955749c8d4e0f"
+					},
+					"response": []
+				},
+				{
+					"name": "Gps enabled update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"gpsEnabled\": false}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{baseUrl}}/boat/gps/64750de87fe955749c8d4e0f"
 					},
 					"response": []
 				}
@@ -142,13 +151,9 @@
 	],
 	"auth": {
 		"type": "bearer",
-		"bearer": [
-			{
-				"key": "token",
-				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMSIsInN1YiI6IjY0NzRkZDk5MjgzNTk0MWNjNDI1OTY4NCIsImlhdCI6MTY4NTM5Mjk1NCwiZXhwIjoxNjg1MzkzMDE0fQ.qYdsMm7PGeh1aogGewEvvRpqixy8W108XN7StZdzilQ",
-				"type": "string"
-			}
-		]
+		"bearer": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMSIsInN1YiI6IjY0NzRkZDk5MjgzNTk0MWNjNDI1OTY4NCIsImlhdCI6MTY5ODg4MDg3NiwiZXhwIjoxNjk4OTY3Mjc2fQ.DsXzzvCkTCdeYC8EHfVk8SyR2w_Qu0vXMjzvgeTG178"
+		}
 	},
 	"event": [
 		{
