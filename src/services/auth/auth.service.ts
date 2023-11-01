@@ -7,10 +7,10 @@ import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import config from '../../config/keys';
 import * as bcrypt from 'bcrypt';
-import { RegistrationDto } from '../../models/dto/registration.dto';
+import { RegistrationInputDto } from '../../models/dto/input/registration.input.dto';
 import { User } from '../../models/schema/user.schema';
 import * as crypto from 'crypto';
-import { SignInDto } from 'src/models/dto/sign_in.dto';
+import { SignInInputDto } from 'src/models/dto/input/sign_in.input.dto';
 
 const salt = config.saltValue;
 
@@ -21,7 +21,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async signIn(signInDto: SignInDto) {
+  async signIn(signInDto: SignInInputDto) {
     const user = await this.usersService.findOne(signInDto.username);
     if (!user) {
       throw new NotFoundException('Felhasználó nem létezik');
@@ -43,7 +43,7 @@ export class AuthService {
     return crypto.randomBytes(32).toString('hex');
   }
 
-  async registration(registration: RegistrationDto) {
+  async registration(registration: RegistrationInputDto) {
     let user = await this.usersService.findByEmailAddress(
       registration.emailAddress,
     );

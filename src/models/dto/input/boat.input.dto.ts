@@ -1,6 +1,6 @@
 import { IsBoolean, IsNumber, IsString } from 'class-validator';
 
-export class BoatDto {
+export class BoatInputDto {
   @IsString()
   _id?: string;
 

@@ -1,8 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BoatDto } from '../../models/dto/boat.dto';
+import { BoatInputDto } from '../../models/dto/input/boat.input.dto';
 import { Boat } from '../../models/schema/boat.schema';
+import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
+import { plainToInstance } from 'class-transformer';
+import { LocationUpdateInput } from 'src/models/dto/input/location_update.input.dto';
+import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
 
 @Injectable()
 export class BoatService {
@@ -11,7 +15,24 @@ export class BoatService {
     private readonly boatModel: Model<Boat>,
   ) {}
 
-  async updateBoat(inputBoat: BoatDto): Promise<Boat> {
+  async updateGpsEnabled(
+    id: string,
+    { gpsEnabled }: GpsEnabledInput,
+  ): Promise<void> {
+    await this.boatModel.findByIdAndUpdate(id, { gpsEnabled: gpsEnabled });
+  }
+
+  async updateLocation(
+    id: string,
+    { latitude, longitude }: LocationUpdateInput,
+  ): Promise<void> {
+    await this.boatModel.findByIdAndUpdate(id, {
+      latitude: latitude,
+      longitude: longitude,
+    });
+  }
+
+  async updateBoat(inputBoat: BoatInputDto): Promise<Boat> {
     if (inputBoat._id == undefined) {
       const newBoat = new this.boatModel({ ...inputBoat, _id: undefined });
 
@@ -24,14 +45,16 @@ export class BoatService {
   }
 
   async getBoatById(boatId: string): Promise<Boat> {
-    return this.boatModel.findOne({ _id: boatId }).exec();
+    return await this.boatModel.findOne({ _id: boatId }).exec();
   }
 
   async getBoatByUserId(userId: string): Promise<Boat> {
-    return this.boatModel.findOne({ userId: userId }).exec();
+    return await this.boatModel.findOne({ userId: userId }).exec();
   }
 
-  async getAll(): Promise<Boat[]> {
-    return this.boatModel.find({ gpsEnabled: true }).lean();
+  async getMarkers(): Promise<BoatMarkerDto[]> {
+    const boats = await this.boatModel.find({ gpsEnabled: true });
+
+    return plainToInstance(BoatMarkerDto, boats);
   }
 }
