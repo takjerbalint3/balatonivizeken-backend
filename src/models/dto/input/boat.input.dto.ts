@@ -1,4 +1,10 @@
-import { IsBoolean, IsNumber, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsHexColor,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 export class BoatInputDto {
   @IsString()
@@ -21,4 +27,8 @@ export class BoatInputDto {
 
   @IsNumber()
   latitude: number;
+
+  @IsOptional()
+  @IsHexColor()
+  boatColor?: string;
 }

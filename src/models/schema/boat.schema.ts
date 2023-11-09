@@ -1,5 +1,5 @@
-import { Document, Types } from 'mongoose';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, Types } from 'mongoose';
 
 export type BoatDocument = Boat & Document;
 
@@ -24,6 +24,9 @@ export class Boat {
 
   @Prop({ required: true })
   latitude: number;
+
+  @Prop()
+  boatColor?: string;
 }
 
 export const BoatSchema = SchemaFactory.createForClass(Boat);

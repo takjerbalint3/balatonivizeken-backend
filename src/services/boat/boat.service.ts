@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
+import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
+import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
+import { LocationUpdateInput } from 'src/models/dto/input/location_update.input.dto';
 import { BoatInputDto } from '../../models/dto/input/boat.input.dto';
 import { Boat } from '../../models/schema/boat.schema';
-import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
-import { plainToInstance } from 'class-transformer';
-import { LocationUpdateInput } from 'src/models/dto/input/location_update.input.dto';
-import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
 
 @Injectable()
 export class BoatService {
@@ -33,6 +33,7 @@ export class BoatService {
   }
 
   async updateBoat(inputBoat: BoatInputDto): Promise<Boat> {
+    console.log(inputBoat);
     if (inputBoat._id == undefined) {
       const newBoat = new this.boatModel({ ...inputBoat, _id: undefined });
 
