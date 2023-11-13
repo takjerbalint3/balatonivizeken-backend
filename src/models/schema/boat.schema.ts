@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
+import { LatLng } from './lat_lng.schema';
 
 export type BoatDocument = Boat & Document;
 
@@ -24,6 +25,9 @@ export class Boat {
 
   @Prop({ required: true })
   latitude: number;
+
+  @Prop({ required: true })
+  lastPositions: LatLng[];
 
   @Prop()
   boatColor?: string;

@@ -26,16 +26,47 @@ export class BoatService {
     id: string,
     { latitude, longitude }: LocationUpdateInput,
   ): Promise<void> {
-    await this.boatModel.findByIdAndUpdate(id, {
-      latitude: latitude,
-      longitude: longitude,
-    });
+    const boat = await this.boatModel
+      .findByIdAndUpdate(
+        { _id: id },
+        {
+          latitude: latitude,
+          longitude: longitude,
+        },
+      )
+      .lean();
+    if (boat.lastPositions.length == 5) {
+      await this.boatModel
+        .findByIdAndUpdate(
+          { _id: id },
+          {
+            $pop: { lastPositions: -1 },
+          },
+        )
+        .lean();
+    }
+    await this.boatModel
+      .findByIdAndUpdate(
+        { _id: id },
+        {
+          $push: {
+            lastPositions: { latitude: latitude, longitude: longitude },
+          },
+        },
+      )
+      .lean();
   }
 
   async updateBoat(inputBoat: BoatInputDto): Promise<Boat> {
     console.log(inputBoat);
     if (inputBoat._id == undefined) {
-      const newBoat = new this.boatModel({ ...inputBoat, _id: undefined });
+      const newBoat = new this.boatModel({
+        ...inputBoat,
+        _id: undefined,
+        lastPositions: [
+          { latitude: inputBoat.latitude, longitude: inputBoat.longitude },
+        ],
+      });
 
       return newBoat.save();
     } else {

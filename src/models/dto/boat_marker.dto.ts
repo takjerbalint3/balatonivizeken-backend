@@ -1,6 +1,7 @@
-import { Exclude, Transform, Expose, Type } from 'class-transformer';
+import { Exclude, Expose, Transform, Type } from 'class-transformer';
 import { Types } from 'mongoose';
 import { Boat } from '../schema/boat.schema';
+import { LatLng } from '../schema/lat_lng.schema';
 
 @Exclude()
 export class BoatMarkerDto implements Boat {
@@ -21,4 +22,6 @@ export class BoatMarkerDto implements Boat {
   boatType: string;
   displayName: string;
   gpsEnabled: boolean;
+  lastPositions: LatLng[];
+  boatColor?: string;
 }
