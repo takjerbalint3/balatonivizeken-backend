@@ -1,11 +1,11 @@
-import { Controller, Get, UseGuards, Param, Post, Body } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
+import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
+import { LocationInput } from 'src/models/dto/input/location_update.input.dto';
+import { Boat } from 'src/models/schema/boat.schema';
 import { AuthGuard } from '../../auth_guard/auth.guard';
 import { BoatInputDto } from '../../models/dto/input/boat.input.dto';
 import { BoatService } from '../../services/boat/boat.service';
-import { Boat } from 'src/models/schema/boat.schema';
-import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
-import { LocationUpdateInput } from 'src/models/dto/input/location_update.input.dto';
-import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
 
 @UseGuards(AuthGuard)
 @Controller('boat')
@@ -13,8 +13,10 @@ export class BoatController {
   constructor(private boatService: BoatService) {}
 
   @Get()
-  async getAllMarkers(): Promise<BoatMarkerDto[]> {
-    return this.boatService.getMarkers();
+  async getAllMarkers(
+    @Body() centerPoint: LocationInput,
+  ): Promise<BoatMarkerDto[]> {
+    return this.boatService.getMarkers(centerPoint);
   }
 
   @Get('by-boat-id/:id')
@@ -35,7 +37,7 @@ export class BoatController {
   @Post('location/:id')
   async updateLocation(
     @Param('id') id: string,
-    @Body() payload: LocationUpdateInput,
+    @Body() payload: LocationInput,
   ): Promise<void> {
     await this.boatService.updateLocation(id, payload);
   }

@@ -1,6 +1,6 @@
 import { IsNumber } from 'class-validator';
 
-export class LocationUpdateInput {
+export class LocationInput {
   @IsNumber()
   longitude: number;
 
