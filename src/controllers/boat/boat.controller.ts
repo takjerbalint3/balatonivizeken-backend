@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
-import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
-import { LocationInput } from 'src/models/dto/input/location_update.input.dto';
-import { Boat } from 'src/models/schema/boat.schema';
 import { AuthGuard } from '../../auth_guard/auth.guard';
+import { BoatMarkerDto } from '../../models/dto/boat_marker.dto';
 import { BoatInputDto } from '../../models/dto/input/boat.input.dto';
+import { GpsEnabledInput } from '../../models/dto/input/gps_enabled.input.dto';
+import { LocationInput } from '../../models/dto/input/location_update.input.dto';
+import { Boat } from '../../models/schema/boat.schema';
 import { BoatService } from '../../services/boat/boat.service';
 
 @UseGuards(AuthGuard)

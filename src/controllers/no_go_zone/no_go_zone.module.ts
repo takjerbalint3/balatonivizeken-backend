@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { NoGoZone, NoGoZoneSchema } from 'src/models/schema/no_go_zone.schema';
+import {
+  NoGoZone,
+  NoGoZoneSchema,
+} from '../../models/schema/no_go_zone.schema';
+import { NoGoZoneService } from '../../services/no_go_zones/no_go_zones.service';
 import { NoGoZoneController } from './no_go_zone.controller';
-import { NoGoZoneService } from 'src/services/no_go_zones/no_go_zones.service';
 
 const mongooseModul = [
   MongooseModule.forFeature([{ name: NoGoZone.name, schema: NoGoZoneSchema }]),

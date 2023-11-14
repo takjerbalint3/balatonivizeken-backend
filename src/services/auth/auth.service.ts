@@ -1,16 +1,16 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
-  BadRequestException,
 } from '@nestjs/common';
-import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
-import config from '../../config/keys';
 import * as bcrypt from 'bcrypt';
-import { RegistrationInputDto } from '../../models/dto/input/registration.input.dto';
-import { User } from '../../models/schema/user.schema';
 import * as crypto from 'crypto';
-import { SignInInputDto } from 'src/models/dto/input/sign_in.input.dto';
+import config from '../../config/keys';
+import { RegistrationInputDto } from '../../models/dto/input/registration.input.dto';
+import { SignInInputDto } from '../../models/dto/input/sign_in.input.dto';
+import { User } from '../../models/schema/user.schema';
+import { UsersService } from '../users/users.service';
 
 const salt = config.saltValue;
 

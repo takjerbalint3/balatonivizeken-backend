@@ -2,10 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
-import { BoatMarkerDto } from 'src/models/dto/boat_marker.dto';
-import { GpsEnabledInput } from 'src/models/dto/input/gps_enabled.input.dto';
-import { LocationInput } from 'src/models/dto/input/location_update.input.dto';
+import { BoatMarkerDto } from '../../models/dto/boat_marker.dto';
 import { BoatInputDto } from '../../models/dto/input/boat.input.dto';
+import { GpsEnabledInput } from '../../models/dto/input/gps_enabled.input.dto';
+import { LocationInput } from '../../models/dto/input/location_update.input.dto';
 import { Boat } from '../../models/schema/boat.schema';
 
 @Injectable()
