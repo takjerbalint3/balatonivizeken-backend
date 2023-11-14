@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
@@ -35,6 +35,10 @@ export class BoatService {
         },
       )
       .lean();
+    if (!boat) {
+      throw new NotFoundException('A hajó nem található');
+    }
+
     if (boat.lastPositions.length == 5) {
       await this.boatModel
         .findByIdAndUpdate(
@@ -58,7 +62,6 @@ export class BoatService {
   }
 
   async updateBoat(inputBoat: BoatInputDto): Promise<Boat> {
-    console.log(inputBoat);
     if (inputBoat._id == undefined) {
       const newBoat = new this.boatModel({
         ...inputBoat,
@@ -77,11 +80,19 @@ export class BoatService {
   }
 
   async getBoatById(boatId: string): Promise<Boat> {
-    return await this.boatModel.findOne({ _id: boatId }).exec();
+    const boat = await this.boatModel.findOne({ _id: boatId }).exec();
+    if (!boat) {
+      throw new NotFoundException('A hajó nem található');
+    }
+    return boat;
   }
 
   async getBoatByUserId(userId: string): Promise<Boat> {
-    return await this.boatModel.findOne({ userId: userId }).exec();
+    const boat = await this.boatModel.findOne({ userId: userId }).exec();
+    if (!boat) {
+      throw new NotFoundException('A hajó nem található');
+    }
+    return boat;
   }
 
   async getMarkers(centerPoint: LocationInput): Promise<BoatMarkerDto[]> {

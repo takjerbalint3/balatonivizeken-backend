@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "0561f082-1c81-4ecf-b0aa-36ed9c3c639b",
 		"name": "BalatoniVizeken",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
@@ -22,7 +22,16 @@
 								}
 							}
 						},
-						"url": "{{baseUrl}}/auth/register"
+						"url": {
+							"raw": "{{baseUrl}}/auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
@@ -40,7 +49,16 @@
 								}
 							}
 						},
-						"url": "{{baseUrl}}/auth/login"
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
@@ -63,7 +81,16 @@
 								}
 							}
 						},
-						"url": "{{baseUrl}}/boat/update"
+						"url": {
+							"raw": "{{baseUrl}}/boat/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"boat",
+								"update"
+							]
+						}
 					},
 					"response": []
 				},
@@ -97,7 +124,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": ""
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -106,7 +135,9 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": ""
+						"url": {
+							"raw": ""
+						}
 					},
 					"response": []
 				},
@@ -124,7 +155,17 @@
 								}
 							}
 						},
-						"url": "{{baseUrl}}/boat/location/64750de87fe955749c8d4e0f"
+						"url": {
+							"raw": "{{baseUrl}}/boat/location/64750de87fe955749c8d4e0f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"boat",
+								"location",
+								"64750de87fe955749c8d4e0f"
+							]
+						}
 					},
 					"response": []
 				},
@@ -142,7 +183,39 @@
 								}
 							}
 						},
-						"url": "{{baseUrl}}/boat/gps/64750de87fe955749c8d4e0f"
+						"url": {
+							"raw": "{{baseUrl}}/boat/gps/64750de87fe955749c8d4e0f",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"boat",
+								"gps",
+								"64750de87fe955749c8d4e0f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Zone",
+			"item": [
+				{
+					"name": "Get Zones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/zone",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"zone"
+							]
+						}
 					},
 					"response": []
 				}
@@ -151,9 +224,13 @@
 	],
 	"auth": {
 		"type": "bearer",
-		"bearer": {
-			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyMSIsInN1YiI6IjY0NzRkZDk5MjgzNTk0MWNjNDI1OTY4NCIsImlhdCI6MTY5ODg4MDg3NiwiZXhwIjoxNjk4OTY3Mjc2fQ.DsXzzvCkTCdeYC8EHfVk8SyR2w_Qu0vXMjzvgeTG178"
-		}
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRha2VlIiwic3ViIjoiNjU1MzdkMTE0Mzc1MTM3ZmNmZmQ2NDUwIiwiaWF0IjoxNjk5OTkwNzczLCJleHAiOjE3MDAwNzcxNzN9.IiWYotzbxYXGYuNc-W1U_TZyHxlnfyOMHc2FHQRuSwQ",
+				"type": "string"
+			}
+		]
 	},
 	"event": [
 		{
