@@ -80,7 +80,7 @@ export class BoatService {
   }
 
   async getBoatById(boatId: string): Promise<Boat> {
-    const boat = await this.boatModel.findOne({ _id: boatId }).exec();
+    const boat = await this.boatModel.findOne({ _id: boatId }).lean();
     if (!boat) {
       throw new NotFoundException('A hajó nem található');
     }
@@ -88,7 +88,7 @@ export class BoatService {
   }
 
   async getBoatByUserId(userId: string): Promise<Boat> {
-    const boat = await this.boatModel.findOne({ userId: userId }).exec();
+    const boat = await this.boatModel.findOne({ userId: userId }).lean();
     if (!boat) {
       throw new NotFoundException('A hajó nem található');
     }
@@ -108,7 +108,6 @@ export class BoatService {
         centerPoint.latitude,
         centerPoint.longitude,
       );
-      console.log(centerPoint, distanceBetweenPoints);
 
       if (distanceBetweenPoints <= 10) {
         return boatsInRange.push(boat);

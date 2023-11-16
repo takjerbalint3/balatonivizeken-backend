@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { getConnectionToken } from '@nestjs/mongoose';
 import { Test, TestingModule } from '@nestjs/testing';
 import mongoose from 'mongoose';
@@ -53,10 +53,47 @@ describe('AuthService', () => {
       ).rejects.toThrow(NotFoundException);
     });
 
-    it('should return', async () => {
+    it('should signIn', async () => {
       const result = await authService.signIn({
         username: 'takee',
         password: 'Xyz123#@',
+      });
+      expect(result).toBeDefined();
+    });
+  });
+
+  describe('register', () => {
+    it('should fail because user with given email already exists', async () => {
+      await expect(() =>
+        authService.registration({
+          username: 'asd',
+          password: 'asd',
+          emailAddress: 'test@test.com',
+          familyName: 'asd',
+          givenName: 'asd',
+        }),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('should fail because user with given username already exists', async () => {
+      await expect(() =>
+        authService.registration({
+          username: 'takee',
+          password: 'asd',
+          emailAddress: 'tes1t@test.com',
+          familyName: 'asd',
+          givenName: 'asd',
+        }),
+      ).rejects.toThrow(BadRequestException);
+    });
+
+    it('should register', async () => {
+      const result = await authService.registration({
+        username: 'test',
+        password: 'asd',
+        emailAddress: 'tes1t@test.com',
+        familyName: 'asd',
+        givenName: 'asd',
       });
       expect(result).toBeDefined();
     });

@@ -16,10 +16,10 @@ export class UsersService {
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    return this.userModel.findOne({ username: username });
+    return this.userModel.findOne({ username: username }).lean();
   }
 
   async findByEmailAddress(emailAddress: string): Promise<User> {
-    return this.userModel.findOne({ emailAddress: emailAddress });
+    return this.userModel.findOne({ emailAddress: emailAddress }).lean();
   }
 }
